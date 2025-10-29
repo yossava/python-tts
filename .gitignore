@@ -40,6 +40,8 @@ models/
 output/
 *.wav
 *.mp3
+*.aiff
+test_*
 
 # OS
 .DS_Store

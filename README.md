@@ -224,11 +224,64 @@ python solution.py "[sighs] I should have known" regret.wav
 python solution.py --style serious "[sighs] The evidence is overwhelming" concern.wav
 ```
 
+### Handling Long Text
+
+**IMPORTANT**: Bark works best with short sentences (<150 characters). Long text produces random/incorrect words.
+
+**Solution**: Split long text into short sentences and generate separately:
+
+```bash
+#!/bin/bash
+# BAD - Long text (will produce errors)
+# python solution.py "This is a very long paragraph with many sentences that goes on and on and contains lots of information that needs to be conveyed in a single audio file but it's too long for Bark to handle properly" long.wav
+
+# GOOD - Split into short sentences
+python solution.py "This is a clear introduction." part1.wav
+python solution.py "It contains important information." part2.wav
+python solution.py "Each sentence is kept short." part3.wav
+python solution.py "This produces better results." part4.wav
+
+# Then combine the audio files using ffmpeg or similar tool
+# ffmpeg -i "concat:part1.wav|part2.wav|part3.wav|part4.wav" -c copy combined.wav
+```
+
+**Text Length Guidelines:**
+- ✅ **Good**: 5-15 words per sentence (50-150 characters)
+- ⚠️ **Risky**: 15-25 words (150-200 characters)
+- ❌ **Bad**: 25+ words (200+ characters) - will produce errors
+
+**Example - Documentary Script:**
+```bash
+# Split long narration into sentences
+python solution.py --style neutral "Welcome to our documentary." intro1.wav
+python solution.py --style neutral "Today we explore the cosmos." intro2.wav
+python solution.py --style enthusiastic "Scientists have made an incredible discovery!" discovery.wav
+python solution.py --style serious "The implications are profound." serious.wav
+```
+
+**Automated Helper Script:**
+
+Use the provided script to automatically split long text:
+
+```bash
+# Automatic splitting by sentences (splits on periods)
+./generate_long_text.sh "This is sentence one. This is sentence two. This is sentence three." output
+
+# With emotion style
+./generate_long_text.sh "Long text here..." documentary enthusiastic
+
+# With emotion and speaker
+./generate_long_text.sh "Long text here..." narration neutral v2/en_speaker_6
+
+# This creates: output_001.wav, output_002.wav, output_003.wav, etc.
+# Then combine with ffmpeg (see script output for instructions)
+```
+
 ### Batch Processing
 
 ```bash
 #!/bin/bash
-# Generate multiple narrations
+# Generate multiple short narrations
 python solution.py --style neutral "Chapter one: The beginning" ch1.wav
 python solution.py --style enthusiastic "Chapter two brings surprises!" ch2.wav
 python solution.py --style serious "Chapter three: The reckoning" ch3.wav
@@ -325,7 +378,10 @@ Bark uses three main model files (v2):
 - ⏱️ **Generation time**: 30-60 seconds per sentence (CPU)
 - 💾 **Model size**: ~13GB disk space
 - 🌐 **English only**: Best results with English text
-- 📏 **Text length**: Works best with sentences <200 characters
+- 📏 **Text length**: **IMPORTANT - Works best with SHORT sentences (<150 characters)**
+  - Long text may produce random/incorrect words
+  - Split long text into multiple short sentences
+  - See "Handling Long Text" section below
 - 🔌 **GPU recommended**: Much faster with NVIDIA CUDA GPU
 - 🎲 **Variability**: Some randomness in generation (can regenerate if needed)
 
@@ -363,6 +419,12 @@ pip install git+https://github.com/suno-ai/bark.git
 - Try different emotional style or speaker
 - Add prosody markers for better control
 
+**Generated audio has random/incorrect words**
+- **Cause**: Text is too long (>150 characters)
+- **Solution**: Split into shorter sentences (<150 characters each)
+- **Example**: Instead of one long paragraph, generate 5-10 short sentences
+- See "Handling Long Text" section above for detailed guide
+
 ## Comparison: Bark vs Other TTS
 
 | Feature | Bark | gTTS | pyttsx3 | ElevenLabs |
@@ -382,6 +444,7 @@ python-tts/
 ├── solution.py              # Main TTS script (Bark-based)
 ├── tts_interactive.sh       # Interactive menu interface
 ├── test_all_speakers.sh     # Test all speakers script
+├── generate_long_text.sh    # Split long text into sentences
 ├── requirements.txt         # Dependencies
 ├── README.md                # This file
 ├── system_design.md         # System architecture

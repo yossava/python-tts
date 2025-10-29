@@ -4,13 +4,13 @@
 
 ## Features
 
-- **🎭 Real emotional expression** - Not just speed changes, actual prosody and emotion
-- **🎙️ Documentary-quality narration** - Natural intonation and pacing
-- **🔊 7 emotional styles** - Neutral, enthusiastic, serious, contemplative, sad, excited, angry
-- **🎤 10 speaker voices** - Each with unique characteristics
-- **💻 100% local** - No API keys, runs entirely offline
-- **🌍 Cross-platform** - Works on Windows, macOS, Linux
-- **🧠 Neural TTS** - Uses Bark (Suno AI) transformer model
+- **Real emotional expression** - Not just speed changes, actual prosody and emotion
+- **Documentary-quality narration** - Natural intonation and pacing
+- **7 emotional styles** - Neutral, enthusiastic, serious, contemplative, sad, excited, angry
+- **10 speaker voices** - Each with unique characteristics
+- **100% local** - No API keys, runs entirely offline
+- **Cross-platform** - Works on Windows, macOS, Linux
+- **Neural TTS** - Uses Bark (Suno AI) transformer model
 
 ## What Makes This Different?
 
@@ -109,12 +109,12 @@ Use the interactive script for a menu-driven experience:
 ```
 
 **Interactive features:**
-- 🎭 Choose emotion from guided menu (7 styles)
-- 🎤 Select speaker from list (10 voices)
-- 📋 List all available speakers
-- 🧪 Test all emotional styles at once
-- ⚡ Quick generation mode
-- 🔊 Auto-play generated audio (macOS)
+- Choose emotion from guided menu (7 styles)
+- Select speaker from list (10 voices)
+- List all available speakers
+- Test all emotional styles at once
+- Quick generation mode
+- Auto-play generated audio (macOS)
 
 ## Emotional Styles
 
@@ -246,9 +246,9 @@ python solution.py "This produces better results." part4.wav
 ```
 
 **Text Length Guidelines:**
-- ✅ **Good**: 5-15 words per sentence (50-150 characters)
-- ⚠️ **Risky**: 15-25 words (150-200 characters)
-- ❌ **Bad**: 25+ words (200+ characters) - will produce errors
+- **Good**: 5-15 words per sentence (50-150 characters)
+- **Risky**: 15-25 words (150-200 characters)
+- **Bad**: 25+ words (200+ characters) - will produce errors
 
 **Example - Documentary Script:**
 ```bash
@@ -259,23 +259,6 @@ python solution.py --style enthusiastic "Scientists have made an incredible disc
 python solution.py --style serious "The implications are profound." serious.wav
 ```
 
-**Automated Helper Script:**
-
-Use the provided script to automatically split long text:
-
-```bash
-# Automatic splitting by sentences (splits on periods)
-./generate_long_text.sh "This is sentence one. This is sentence two. This is sentence three." output
-
-# With emotion style
-./generate_long_text.sh "Long text here..." documentary enthusiastic
-
-# With emotion and speaker
-./generate_long_text.sh "Long text here..." narration neutral v2/en_speaker_6
-
-# This creates: output_001.wav, output_002.wav, output_003.wav, etc.
-# Then combine with ffmpeg (see script output for instructions)
-```
 
 ### Batch Processing
 
@@ -325,9 +308,9 @@ done
 
 ## Cross-Platform Support
 
-✅ **Windows** (10/11)
-✅ **macOS** (10.13+, both Intel and Apple Silicon)
-✅ **Linux** (Ubuntu, Debian, Fedora, etc.)
+- **Windows** (10/11)
+- **macOS** (10.13+, both Intel and Apple Silicon)
+- **Linux** (Ubuntu, Debian, Fedora, etc.)
 
 Pure Python implementation with no platform-specific dependencies.
 
@@ -375,15 +358,15 @@ Bark uses three main model files (v2):
 
 ## Limitations
 
-- ⏱️ **Generation time**: 30-60 seconds per sentence (CPU)
-- 💾 **Model size**: ~13GB disk space
-- 🌐 **English only**: Best results with English text
-- 📏 **Text length**: **IMPORTANT - Works best with SHORT sentences (<150 characters)**
+- **Generation time**: 30-60 seconds per sentence (CPU)
+- **Model size**: ~13GB disk space
+- **English only**: Best results with English text
+- **Text length**: **IMPORTANT - Works best with SHORT sentences (<150 characters)**
   - Long text may produce random/incorrect words
   - Split long text into multiple short sentences
   - See "Handling Long Text" section below
-- 🔌 **GPU recommended**: Much faster with NVIDIA CUDA GPU
-- 🎲 **Variability**: Some randomness in generation (can regenerate if needed)
+- **GPU recommended**: Much faster with NVIDIA CUDA GPU
+- **Variability**: Some randomness in generation (can regenerate if needed)
 
 ## Troubleshooting
 
@@ -444,7 +427,6 @@ python-tts/
 ├── solution.py              # Main TTS script (Bark-based)
 ├── tts_interactive.sh       # Interactive menu interface
 ├── test_all_speakers.sh     # Test all speakers script
-├── generate_long_text.sh    # Split long text into sentences
 ├── requirements.txt         # Dependencies
 ├── README.md                # This file
 ├── system_design.md         # System architecture
@@ -461,9 +443,9 @@ python-tts/
 
 This project demonstrates:
 
-✅ **Part A**: Complete system design with 7 required sections
-✅ **Part B**: Working prototype with real emotional expression
-✅ **Bonus**:
+- **Part A**: Complete system design with 7 required sections
+- **Part B**: Working prototype with real emotional expression
+- **Bonus**:
   - Advanced emotion control (7 styles)
   - Multiple speakers (10 voices)
   - Prosody markers

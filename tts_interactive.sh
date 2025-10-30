@@ -143,6 +143,26 @@ generate_custom() {
         return
     fi
 
+    # Check text length
+    text_length=${#text}
+    if [ $text_length -gt 150 ]; then
+        echo
+        echo -e "${YELLOW}⚠️  WARNING: Text is too long ($text_length characters)${NC}"
+        echo -e "${YELLOW}    Maximum recommended: 150 characters${NC}"
+        echo -e "${YELLOW}    Long text produces random/incorrect words${NC}"
+        echo
+        echo -e "The script will automatically use the first 150 characters."
+        echo -e "Original text: ${text:0:80}..."
+        echo
+        read -p "Continue? (y/n): " continue_choice
+        if [[ ! "$continue_choice" =~ ^[Yy]$ ]]; then
+            echo "Cancelled."
+            sleep 1
+            return
+        fi
+        # Text will be truncated by solution.py automatically
+    fi
+
     # Generate filename
     timestamp=$(date +%Y%m%d_%H%M%S)
     output="output_${emotion}_${timestamp}.wav"
@@ -250,6 +270,26 @@ quick_generate() {
         echo -e "${RED}Text cannot be empty${NC}"
         sleep 2
         return
+    fi
+
+    # Check text length
+    text_length=${#text}
+    if [ $text_length -gt 150 ]; then
+        echo
+        echo -e "${YELLOW}⚠️  WARNING: Text is too long ($text_length characters)${NC}"
+        echo -e "${YELLOW}    Maximum recommended: 150 characters${NC}"
+        echo -e "${YELLOW}    Long text produces random/incorrect words${NC}"
+        echo
+        echo -e "The script will automatically use the first 150 characters."
+        echo -e "Original text: ${text:0:80}..."
+        echo
+        read -p "Continue? (y/n): " continue_choice
+        if [[ ! "$continue_choice" =~ ^[Yy]$ ]]; then
+            echo "Cancelled."
+            sleep 1
+            return
+        fi
+        # Text will be truncated by solution.py automatically
     fi
 
     output="quick_$(date +%Y%m%d_%H%M%S).wav"

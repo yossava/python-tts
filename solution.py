@@ -116,6 +116,18 @@ class EmotionalTTS:
             print("Error: Input text is empty")
             return False
 
+        # Check text length and truncate if too long
+        MAX_CHARS = 150
+        original_text = text
+        if len(text) > MAX_CHARS:
+            text = text[:MAX_CHARS]
+            print(f"\n⚠️  WARNING: Text too long ({len(original_text)} characters)")
+            print(f"    Maximum recommended: {MAX_CHARS} characters")
+            print(f"    Long text produces random/incorrect words")
+            print(f"    Using first {MAX_CHARS} characters only:")
+            print(f"    '{text}'")
+            print()
+
         if style not in self.EMOTION_STYLES:
             print(f"Warning: Unknown style '{style}'. Using 'neutral'.")
             style = 'neutral'
